@@ -1,13 +1,7 @@
-from flask import Flask, render_template, url_for, flash, redirect
-from forms import RegistrationForm, LoginForm
-
-app = Flask(__name__)
-
-app.config['SECRET_KEY'] = '348943509rf4j09w09809cv987v987b'
-
-# Ensure templates are auto-reloaded
-app.config["TEMPLATES_AUTO_RELOAD"] = True
-
+from flask import render_template, url_for, flash, redirect
+from ideas import app
+from ideas.forms import RegistrationForm, LoginForm
+from ideas.models import User, Post
 
 ideas = [
     {
@@ -29,7 +23,6 @@ ideas = [
         'by': 'Brisa'
     }
 ]
-
 
 @app.route('/')
 @app.route('/index')
@@ -64,11 +57,4 @@ def login():
         else:
             flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template("login.html", title='Login', form=form)
-
-
-
-
-
-if __name__ == '__main__': 
-    app.run(debug=True)
 
