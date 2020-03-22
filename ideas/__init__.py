@@ -14,4 +14,5 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ideas.db'
 db = SQLAlchemy(app)
 
+# noQA
 from ideas import routes
