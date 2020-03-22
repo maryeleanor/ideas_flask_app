@@ -7,4 +7,26 @@ Quarantine Ideas
 {% block main %}
         <h1>Hi, {{ user.username }}!</h1>
         <p> Looking for some quarantine ideas?</p>
+        <br><br>
+
+        
+        <table class="table">
+                <thead>
+                <tr>
+                        <th>Idea</th>
+                        <th>Good for</th>
+                        <th>Notes</th>
+                        <th>Suggested by:</th>
+                </tr>
+                </thead>
+                {% for idea in ideas %}
+                <tr>
+                        <td>{{ idea.suggestion }}</td>
+                        <td>{{ idea.for }}</td>
+                        <td>{{ idea.notes }}</td>
+                        <td>{{ idea.by }}</td>
+                </tr>
+                {% endfor %}
+        </table>
+
 {% endblock %}
