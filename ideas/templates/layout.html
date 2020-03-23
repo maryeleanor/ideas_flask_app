@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
     {% if title %}
-    <title>Quarantine Ideas - {{ title }}</title>
+    <title>{{ title }}</title>
     {% else %}
     <title>Quarantine Ideas </title>
     {% endif %}
@@ -29,10 +29,6 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarToggle">
-                    <div class="navbar-nav mr-auto">
-                        <a class="nav-item nav-link" href="{{ url_for('home') }}">Home</a>
-                        <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
-                    </div>
                     {% if current_user.is_authenticated %}
                         <ul class="navbar-nav ml-auto mt-2">
                             <li class="nav-item"><a class="nav-link" href="{{ url_for('new_post') }}">New Post</a></li>
@@ -71,7 +67,7 @@
             </div>
             <div class="col-md-4">
                 <div class="content-section">
-                    <h3>Our Sidebar</h3>
+                    <h3>Sidebar</h3>
                     <p class='text-muted'>You can put any information here you'd like.
                         <ul class="list-group">
                             <li class="list-group-item list-group-item-light">Latest Posts</li>
