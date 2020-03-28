@@ -5,52 +5,103 @@
 {% endblock %}
 
 {% block main %}
-        <h1>Hi, {{ current_user.username }}!</h1>
-        <p> Looking for some quarantine ideas?</p>
-        <br><br>
-        
-        <table class="table">
-                <thead>
-                <tr>
-                        <th>Idea</th>
-                        <th>Good for</th>
-                        <th>Notes</th>
-                        <th>Suggested by:</th>
-                </tr>
-                </thead>
-                {% for idea in ideas %}
-                <tr>
-                        <td>{{ idea.suggestion }}</td>
-                        <td>{{ idea.for }}</td>
-                        <td>{{ idea.notes }}</td>
-                        <td>{{ idea.by }}</td>
-                </tr>
-                {% endfor %}
-        </table>
-        
-        {% for post in posts.items %}
-        <article class="media content-section">
-                <img class="rounded-circle article-img" src="{{url_for('static', filename='img/'+ post.author.image_file) }}">
-                <div class="media-body">
-                        <div class="article-metadata">
-                                <a class="mr-2" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
-                                <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
-                        </div>
-                        <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
-                        <p class="article-content">{{ post.content }}</p>
-                </div>
-        </article>
-        {% endfor %}
+        <div class="center">
+        <h1>Pandemic Tool Kit</h1> 
+        <h4> For those of us stuck in the house, looking for things to do... </h4>
+        </div> 
 
-        {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=3) %}        
-                {% if page_num %}
-                        {% if posts.page == page_num %}
-                                 <a class="btn btn-info mb-4" href="{{ url_for('home', page=page_num) }}"> {{ page_num }}</a>
-                        {% else %}
-                                <a class="btn btn-outline-info mb-4" href="{{ url_for('home', page=page_num) }}"> {{ page_num }}</a>
+
+        <div class="flex-container">
+        <div class="container-fluid"> 
+        <form method="POST" action="{{ url_for('home') }}" >
+                <!-- {{ form.hidden_tag() }} -->
+                <fieldset class="form-group">
+
+                <button name=cookField type=form.cookField value=cookField class="form-group btn-outline flex-item">
+                        <img class="btn-img d-none d-sm-none d-md-inline-block" src="/static/img/cooking.svg" />
+                        {{ form.cookField(class="fields") }}  
+                </button>
+
+                <button name=doField type=form.doField value=doField class="form-group btn-outline flex-item">
+                        <img class="btn-img d-none d-sm-none d-md-inline-block" src="/static/img/craft.svg" />
+                        {{ form.doField(class="fields") }}
+                </button>
+
+                <button name=kidsField type=form.kidsField value=kidsField class="form-group btn-outline flex-item">
+                        <img class="btn-img d-none  d-sm-none d-md-inline-block" src="/static/img/blocks.svg" />
+                        {{ form.kidsField(class="fields") }}
+                </button>
+
+                <button name=watchField type=form.watchField value=watchField class="form-group btn-outline flex-item">
+                        <img class="btn-img d-none d-sm-none d-md-inline-block" src="/static/img/play.svg" />
+                        {{ form.watchField(class="fields") }}
+                </button>
+
+                <button name=readField type=form.readField value=readField class="form-group btn-outline flex-item">
+                        <img class="btn-img d-none d-sm-none d-md-inline-block" src="/static/img/read.svg" />
+                        {{ form.readField(class="fields") }}
+                </button>
+
+                <button name=listenField type=form.listenField value=listenField class="form-group btn-outline flex-item">
+                        <img class="btn-img d-none d-sm-none d-md-inline-block" src="/static/img/listen.svg" />
+                        {{ form.listenField(class="fields") }}
+                </button>
+
+                <button name=gratefulField type=form.gratefulield value=gratefulield class="form-group btn-outline flex-item">
+                        <img class="btn-img d-none d-sm-none d-md-inline-block" src="/static/img/hand-heart.svg" />
+                        {{ form.gratefulField(class="fields") }}
+                </button>
+
+                <button name=healthField type=form.healthField value=healthField class="form-group btn-outline flex-item">
+                        <img class="btn-img d-none d-sm-none d-md-inline-block" src="/static/img/sun.svg" />
+                        {{ form.healthField(class="fields") }}
+                </button>
+
+                <button name=donateField type=form.donateField value=donateField class="form-group btn-outline flex-item">
+                        <img class="btn-img d-none d-sm-none d-md-inline-block" src="/static/img/donate2.svg" />
+                        {{ form.donateField(class="fields") }}
+                </button>
+                </fieldset>
+        </form>
+        </div> 
+
+        {% if request.method == "GET" %}
+        <div class="about">
+                <p>This is a repository of unique things to do, watch, read, think, and listen to during this unique time.
+                        Listeners of the Death, Sex & Money podcast shared over 400 ideas on how to pass the time, how to cope,
+                        and how to help others as we practice social distancing.
+                        We hope you can find something on here that will feel like a fresh comfort, maybe even add a little
+                        novelty to
+                        your weekend.
+                </p>
+        </div>
+        {% endif %}
+
+        {% if idea is defined %}
+        <article class="media content-section">
+                <div class="media-body">
+                        {% if idea.url %}
+                                <a href="{{ idea.url }}"  target="_blank">
+                                <h2 class="article-title m-2"> {{ idea.suggestion }} </h2> </a>
+                        {% else  %}
+                                <h2 class="article-title m-2"> {{ idea.suggestion }} </h2>
                         {% endif %}
-                        {% else %}
-                        ...
-                {% endif %}
-        {% endfor %}
+                        {% if idea.why is not none %}
+                        <h5 class="article-content m-3">{{ idea.why }}</h5>
+                        {% endif %}
+                        {% if idea.notes is not none %}
+                        <h5 class="article-content m-2">{{ idea.notes }}</h5>
+                        {% endif %}
+                        {% if idea.url1 is not none %}
+                                <span class="inline"> <p> Other relevant links: </p>  <a class="small" href="{{ idea.url1 }}">{{ idea.url1 }}</a>  
+                        {% endif %}
+                        {% if idea.url2 is not none %}
+                                <a class="small" href="{{ idea.url2 }}">{{ idea.url2 }}</a> </span>
+                        {% endif %} 
+                        <p> Submitted by: {{ idea.name }}</p>
+                        </div>
+                </div>
+        </article> 
+        {% endif %}
+</div>
 {% endblock %}

@@ -1,6 +1,10 @@
 import os
 import secrets
-from PIL import Image
+import random
+from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
+from flask_login import current_user
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from flask import render_template, url_for, flash, redirect, request, abort
 from ideas import app, db, bcrypt, mail
 from ideas.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm
@@ -8,215 +12,92 @@ from ideas.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
 
-ideas = [
-    {
-        'suggestion': 'knitting',
-        'for': 'creativity, managing anxiety, learning something new, calming', 
-        'notes': 'if you have yarn around, its very easy to learn.',
-        'by': 'Afi'
-    },
-    {
-        'suggestion': 'go for a walk',
-        'for': 'managing anxiety, slowing down',
-        'notes': 'feeling the breeze',
-        'by': 'Robyn'
-    },
-    {
-        'suggestion': 'jigsaw puzzles',
-        'for': 'passing time',
-        'notes': "There are some free sites online if you don't have puzzles on hand",
-        'by': 'Brisa'
-    }
-]
+# map to db
+cook = db.Table('cook', db.metadata, autoload=True, autoload_with=db.engine)
+do = db.Table('do', db.metadata, autoload=True, autoload_with=db.engine)
+donate = db.Table('donate', db.metadata, autoload=True, autoload_with=db.engine)
+kids = db.Table('kids', db.metadata, autoload=True, autoload_with=db.engine)
+listen = db.Table('listen', db.metadata, autoload=True, autoload_with=db.engine)
+watch = db.Table('watch', db.metadata, autoload=True, autoload_with=db.engine)
+read = db.Table('read', db.metadata, autoload=True, autoload_with=db.engine)
+grateful = db.Table('grateful', db.metadata, autoload=True, autoload_with=db.engine)
+health = db.Table('health', db.metadata, autoload=True, autoload_with=db.engine)
+
+# form for buttons
+class ideaForm(FlaskForm):
+    cookField = SubmitField('Something to cook')
+    doField = SubmitField('Something to do')
+    donateField = SubmitField('Somwhere to donate')
+    kidsField = SubmitField('Something to do with kids')
+    listenField = SubmitField('Something to listen to')
+    watchField = SubmitField('Something to watch')
+    readField = SubmitField('Something to read')
+    gratefulField = SubmitField('Something to be grateful for')
+    healthField = SubmitField('Something for your mental health')
+
 
 @app.route('/')
 @app.route('/index')
-@app.route('/home')
+@app.route('/home', methods=['GET', 'POST'])
 def home():
-    page = request.args.get('page', 1, type=int)
-    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=3)
-    return render_template("index.html", title='Quarantine Ideas', ideas=ideas, posts=posts)
+    form = ideaForm()
 
+    if request.method == "POST":
+        if form.cookField.data:
+            cook_ideas = db.session.query(cook).all()
+            x = random.randint(0, len(cook_ideas)-1)
+            idea = cook_ideas[x]
+            return render_template("index.html", title='Pandemic Tool Kit', idea=idea, form=form)
 
-@app.route('/about')
-def about():    
-    return render_template("about.html")
+        if form.doField.data:
+            do_ideas = db.session.query(do).all()
+            x = random.randint(0, len(do_ideas)-1)
+            idea = do_ideas[x]
+            return render_template("index.html", title='Pandemic Tool Kit', idea=idea, form=form)
 
+        if form.kidsField.data:
+            kids_ideas = db.session.query(kids).all()
+            x = random.randint(0, len(kids_ideas)-1)
+            idea = kids_ideas[x]
+            return render_template("index.html", title='Pandemic Tool Kit', idea=idea, form=form)
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        if form.watchField.data:
+            watch_ideas = db.session.query(watch).all()
+            x = random.randint(0, len(watch_ideas)-1)
+            idea = watch_ideas[x]
+            return render_template("index.html", title='Pandemic Tool Kit', idea=idea, form=form)
 
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        hashed_pw = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data,  password=hashed_pw)
-        db.session.add(user)
-        db.session.commit()
-        flash(f'Account created for {form.username.data}. Please log in.', 'success')
-        return redirect(url_for('login')) 
+        if form.readField.data:
+            read_ideas = db.session.query(read).all()
+            x = random.randint(0, len(read_ideas)-1)
+            idea = read_ideas[x]
+            return render_template("index.html", title='Pandemic Tool Kit', idea=idea, form=form)
 
-    return render_template("register.html",  title='Register', form=form)
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
-
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
-            login_user(user, remember=form.remember.data)
-            next_page = request.args.get('next')    
-            flash('Login Successful', 'success') 
-            return redirect(next_page) if next_page else redirect(url_for('home'))
-        else: 
-            flash('Login Unsuccessful. Please check email and password', 'danger')
-    return render_template("login.html", title='Login', form=form)
-
-
-@app.route('/logout') 
-def logout():
-    logout_user()
-    return redirect(url_for('home'))
- 
-
-def save_picture(form_picture):
-    random_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(form_picture.filename)
-    picture_fn = random_hex + f_ext
-    picture_path = os.path.join(app.root_path, 'static/img', picture_fn)
-    output_size = (200, 200)
-    i = Image.open(form_picture)
-    i.thumbnail(output_size)
-    i.save(picture_path)
-    return picture_fn
-
-
-@app.route('/account', methods=['GET', 'POST'])
-@login_required
-def account():
-    form = UpdateAccountForm()
-    if form.validate_on_submit():
-        if form.picture.data:
-            picture_file = save_picture(form.picture.data)
-            current_user.image_file = picture_file
-        current_user.username = form.username.data
-        current_user.email = form.email.data
-        db.session.commit()
-        flash('Your account has been updated!', 'success')
-        return redirect(url_for('account'))
-    elif request.method == 'GET':
-        form.username.data = current_user.username
-        form.email.data = current_user.email    
-
-    image_file = url_for('static', filename='img/' + current_user.image_file)
-    return render_template('account.html', title='Account', image_file=image_file,  form=form)
-
-
-@app.route('/post/new', methods=['GET', 'POST'])
-@login_required
-def new_post():
-    form = PostForm ()
-    if form.validate_on_submit():
-        flash('Your post has been created!', 'success')
-        post = Post(title=form.title.data, content=form.content.data, author=current_user) 
-        db.session.add(post)
-        db.session.commit()
-        return redirect(url_for('home'))
-    return render_template('create_post.html', title='New Post', form=form, legend='New Post')
-
-
-@app.route('/post/<int:post_id>', methods=['GET', 'POST']) 
-def post(post_id):
-    post = Post.query.get_or_404(post_id)
-    return render_template('post.html', title=post.title, post=post)
-
-
-@app.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
-@login_required
-def update_post(post_id):
-    post = Post.query.get_or_404(post_id)
-    if post.author != current_user:
-        abort(403)
-    form = PostForm()
-    if form.validate_on_submit():
-        post.title = form.title.data
-        post.content = form.content.data
-        db.session.commit()
-        flash('Your post has been updated.', 'success')
-        return redirect(url_for('post', post_id=post.id))
-    elif request.method == 'GET':        
-        form.title.data = post.title
-        form.content.data = post.content
-    return render_template('create_post.html', title='Update Post',
-                             form=form, legend='Update Post')
-
-
-@app.route('/post/<int:post_id>/delete', methods=['POST'])
-@login_required
-def delete_post(post_id):
-    post = Post.query.get_or_404(post_id)
-    if post.author != current_user:
-        abort(403)
-    db.session.delete(post)
-    db.session.commit()
-    flash('Your post has been deleted.', 'danger')
-    return redirect(url_for('home'))
-
-
-@app.route("/user/<string:username>")
-def user_posts(username):
-    page = request.args.get('page', 1, type=int)
-    user = User.query.filter_by(username=username).first_or_404()
-    posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate(page=page, per_page=3)
-    return render_template("user_posts.html", title='Quarantine Ideas', ideas=ideas, posts=posts, user=user)
-
-def send_reset_email(user):
-    token = user.get_reset_token()
-    msg = Message('Password Reset Request',
-                  sender='maryeleanordesigns@gmail.com',
-                  recipients=[user.email])
-    msg.body = f'''To reset your password, visit the following link:
-{url_for('reset_token', token=token, _external=True)}
-
-If you did not make this request then simply ignore this email and no changes will be made.
-'''
-    mail.send(msg)
+        if form.listenField.data:
+            listen_ideas = db.session.query(listen).all()
+            x = random.randint(0, len(listen_ideas)-1)
+            idea = listen_ideas[x]
+            return render_template("index.html", title='Pandemic Tool Kit', idea=idea, form=form)
     
+        if form.gratefulField.data:
+            grateful_ideas = db.session.query(grateful).all()
+            x = random.randint(0, len(grateful_ideas)-1)
+            idea = grateful_ideas[x]
+            return render_template("index.html", title='Pandemic Tool Kit', idea=idea, form=form)
+
+        if form.donateField.data:
+            donate_ideas = db.session.query(donate).all()
+            x = random.randint(0, len(donate_ideas)-1)
+            idea = donate_ideas[x]
+            return render_template("index.html", title='Pandemic Tool Kit', idea=idea, form=form)
+
+        if form.healthField.data:
+            health_ideas = db.session.query(health).all()
+            x = random.randint(0, len(health_ideas)-1)
+            idea = health_ideas[x]
+            return render_template("index.html", title='Pandemic Tool Kit', idea=idea, form=form)
+    
+    return render_template("index.html", title='Pandemic Tool Kit', form=form)
+
+
  
-@app.route('/reset_password', methods=['GET', 'POST'])
-def reset_request():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
-    form = RequestResetForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        send_reset_email(user)
-        flash('An email has been sent with instructions to reset your password', 'info')
-        return redirect(url_for('login'))
-    return render_template('reset_request.html', title='Reset Password', form=form)
-
-
-@app.route("/reset_password/<token>", methods=['GET', 'POST'])
-def reset_token(token):
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
-    user = User.verify_reset_token(token)
-    if user is None:
-        flash('That is an invalid or expired token', 'warning')
-        return redirect(url_for('reset_request'))
-    form = ResetPasswordForm()
-    if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user.password = hashed_password
-        db.session.commit()
-        flash('Your password has been updated! You are now able to log in', 'success')
-        return redirect(url_for('login'))
-    return render_template('reset_token.html', title='Reset Password', form=form)
-
-
-
