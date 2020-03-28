@@ -37,6 +37,14 @@ svg {
   fill: pink;
 } 
 
+.brand {
+  color: #000;
+  font-family: 'Playfair Display', serif;
+  padding-top: 30px;
+  margin-right: 60px;
+  float: right;
+}
+
 h1 {
   font-family: 'Playfair Display', serif;
   padding: 10px;
@@ -167,7 +175,16 @@ footer p{
 
 @media only screen and (max-width: 600px) {
 
+  h1, h4{
+    display: none;
+  }
+
+  .center {
+    width: 100%;
+  }
+
   .about {
+    padding: 0px;
     width: 100%;
     flex-grow: 2;
   }
@@ -180,18 +197,32 @@ footer p{
   }
 
   div{
-    padding: 5px;
+    padding: 0px;
   }
 
   nav{
+    display: inline;
+    height: 50px;
     margin-bottom: -10px;
   }
 
   .flex-item{ 
-    margin: 10px;
+    margin: 5px;
     font-size: .8em;
   }
 
- 
+ article {
+   padding: 0px;
+   width: 100%;
+   overflow: hidden;
+ }
+
+ article h3{
+   font-size: .7em;
+ }
+
+ footer{
+   height: 100px;
+ }
 
 }
