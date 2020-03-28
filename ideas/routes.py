@@ -20,7 +20,7 @@ health = db.Table('health', db.metadata, autoload=True, autoload_with=db.engine)
 class ideaForm(FlaskForm):
     cookField = SubmitField('Something to cook')
     doField = SubmitField('Something to do')
-    donateField = SubmitField('Somwhere to donate')
+    donateField = SubmitField('Somewhere to donate')
     kidsField = SubmitField('Something to do with kids')
     listenField = SubmitField('Something to listen to')
     watchField = SubmitField('Something to watch')
