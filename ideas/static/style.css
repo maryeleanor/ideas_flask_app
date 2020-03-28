@@ -80,9 +80,10 @@ fieldset{
   display: inline-block;
   margin: 10px; 
   background-color: #5CBCFF;
-  transition: transform 0.3s ease;
   text-align: center;
   border-radius: 8px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
 .fields{ 
