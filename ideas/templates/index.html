@@ -67,13 +67,16 @@
 
         {% if request.method == "GET" %}
         <div class="about">
-                <p>This is a repository of unique things to do, watch, read, think, and listen to during this unique time.
-                        Listeners of the Death, Sex & Money podcast shared over 400 ideas on how to pass the time, how to cope,
+                <h3>This is a repository of unique things to do, watch, read, think, and listen to during this unique time.
+                        Listeners of the <a target="_blank" href="https://www.wnycstudios.org/podcasts/deathsexmoney">
+                        Death Sex & Money podcast.</a> shared over 400 
+                        <a target="_blank" href="https://docs.google.com/spreadsheets/d/1npe706TWTCzg9LzP_Jydso_w5rRbCxbwDQp-bUaB44E/">ideas
+                        </a> on how to pass the time, how to cope,
                         and how to help others as we practice social distancing.
                         We hope you can find something on here that will feel like a fresh comfort, maybe even add a little
-                        novelty to
-                        your weekend.
-                </p>
+                        novelty to your weekend. 
+
+                </h3>
         </div>
         {% endif %}
 
@@ -98,7 +101,7 @@
                         {% if idea.url2 is not none %}
                                 <a class="small" href="{{ idea.url2 }}">{{ idea.url2 }}</a> </span>
                         {% endif %} 
-                        <p> Submitted by: {{ idea.name }}</p>
+                        <p class="small"> Submitted by: {{ idea.name }}</p>
                         </div>
                 </div>
         </article> 

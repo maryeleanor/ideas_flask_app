@@ -1,16 +1,9 @@
 import os
-import secrets
 import random
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed
-from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
-from flask import render_template, url_for, flash, redirect, request, abort
-from ideas import app, db, bcrypt, mail
-from ideas.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm
-from ideas.models import User, Post
-from flask_login import login_user, current_user, logout_user, login_required
-from flask_mail import Message
+from wtforms import SubmitField
+from flask import render_template, url_for,  redirect, request
+from ideas import app, db
 
 # map to db
 cook = db.Table('cook', db.metadata, autoload=True, autoload_with=db.engine)
