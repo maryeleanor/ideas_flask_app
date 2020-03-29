@@ -91,10 +91,10 @@
                         <h5 class="article-content m-2">{{ idea.notes }}</h5>
                         {% endif %}
                         {% if idea.url1 is not none %}
-                                <span class="inline"> <p> Other relevant links: </p>  <a class="small" href="{{ idea.url1 }}">{{ idea.url1 }}</a>  
+                                <span class="inline"> <p> Other relevant links: </p>  <p><a class="small" href="{{ idea.url1 }}">{{ idea.url1 }}</a> </p>
                         {% endif %}
                         {% if idea.url2 is not none %}
-                                <a class="small" href="{{ idea.url2 }}">{{ idea.url2 }}</a> </span>
+                                <p><a class="small" href="{{ idea.url2 }}">{{ idea.url2 }}</a> </span></p>
                         {% endif %} 
                         <p class="small"> Submitted by: {{ idea.name }}</p>
                         </div>
