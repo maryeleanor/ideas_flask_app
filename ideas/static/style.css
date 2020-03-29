@@ -151,6 +151,8 @@ footer {
   margin-top: 40px; 
 }
 
+
+@-moz-document url-prefix() {
 @media only screen and (max-width: 575px) {
 
       body{
@@ -260,9 +262,11 @@ footer {
       font-size: .5em;
     }
 }
+}
 
 
 
+@-moz-document url-prefix() {
 @media only screen and (min-width: 577px) and (max-width: 1200px) {
 
     .container-fluid{
@@ -297,10 +301,10 @@ footer {
       width: 80px;
       height: 80px;
     }
-
+  }
 }
 
-
+@-moz-document url-prefix() {
 @media only screen and (min-width: 1200px) and (max-width: 1500px) {
  
     .btn-img{
@@ -312,4 +316,4 @@ footer {
       margin: 2px;
     }
 
-}
+}}
