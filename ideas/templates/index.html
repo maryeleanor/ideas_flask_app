@@ -14,48 +14,48 @@
         <form method="POST" action="{{ url_for('home') }}" >
                 <fieldset class="form-group">
 
-                <button name=cook type=form.cook  value=cook  class="form-group btn-outline flex-item">
+                <button name=cook type=form.cook  value=cook  class="form-group btn-outline flex-item cook">
                         <img class="btn-img" src="/static/img/cooking.svg" />
                         <p> Cook </p>
                 </button>
 
-                <button name=do type=form.do value=do class="form-group btn-outline flex-item">
+                <button name=do type=form.do value=do class="form-group btn-outline flex-item do">
                         <img class="btn-img" src="/static/img/craft.svg" />
                         <p> Do </p>
                 </button>
 
-                <button name=kids type=form.kids value=kids class="form-group btn-outline flex-item">
+                <button name=kids type=form.kids value=kids class="form-group btn-outline flex-item kids">
                         <img class="btn-img" src="/static/img/blocks.svg" />
                         <p class="d-none d-sm-none d-md-none d-lg-none d-xl-block"> Do with Kids</p>
                         <p class="d-block d-sm-block d-md-block d-lg-block d-xl-none"> Kids </p>
                 </button>
 
-                <button name=watch type=form.watch value=watch class="form-group btn-outline flex-item">
+                <button name=watch type=form.watch value=watch class="form-group btn-outline flex-item watch">
                         <img class="btn-img" src="/static/img/play.svg" />
                         <p> Watch </p>
                 </button>
 
-                <button name=read type=form.read value=read class="form-group btn-outline flex-item">
+                <button name=read type=form.read value=read class="form-group btn-outline flex-item read">
                         <img class="btn-img" src="/static/img/read.svg" />
                         <p> Read </p>
                 </button>
 
-                <button name=listen type=form.listen value=listen class="form-group btn-outline flex-item">
+                <button name=listen type=form.listen value=listen class="form-group btn-outline flex-item listen">
                         <img class="btn-img" src="/static/img/listen.svg" />
                         <p> Listen </p>
                 </button>
 
-                <button name=grateful type=form.grateful value=grateful class="form-group btn-outline flex-item">
+                <button name=grateful type=form.grateful value=grateful class="form-group btn-outline flex-item grateful">
                         <img class="btn-img" src="/static/img/hand-heart.svg" />
                         <p> Grateful </p>
                 </button>
 
-                <button name=health type=form.health value=health class="form-group btn-outline flex-item">
+                <button name=health type=form.health value=health class="form-group btn-outline flex-item health">
                         <img class="btn-img" src="/static/img/sun.svg" />
                         <p> Health </p>
                 </button>
 
-                <button name=donate type=form.donate value=donate class="form-group btn-outline flex-item">
+                <button name=donate type=form.donate value=donate class="form-group btn-outline flex-item donate">
                         <img class="btn-img" src="/static/img/donate2.svg" />
                         <p> Donate </p>
                 </button>
@@ -75,8 +75,9 @@
         </div>
         {% endif %}
 
-        {% if idea is defined %}
-        <article class="media content-section">
+        {% if idea is defined %} 
+        <article class="media content-section {{ category }}">
+                <h6 class="d-none d-sm-none d-md-block">{{  tag }}</h6>
                 <div class="media-body">
                         {% if idea.url %}
                                 <a href="{{ idea.url }}"  target="_blank">
@@ -99,7 +100,7 @@
                         <p class="small"> Submitted by: {{ idea.name }}</p>
                         </div>
                 </div>
-        </article> 
+        </article>  
         {% endif %}
 </div>
 {% endblock %}

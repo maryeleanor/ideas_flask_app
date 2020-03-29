@@ -1,4 +1,3 @@
-
 body {
 font-family: 'Quicksand', sans-serif;
 font-size: 20px;
@@ -29,10 +28,10 @@ nav{
   margin-top: 10px;
   margin-bottom: -40px;
 }
-
+/* 
 svg {
   fill: pink;
-} 
+}  */
 
 
 h1 {
@@ -54,27 +53,64 @@ fieldset{
   padding:none !important;
 }
   
-
 .container-fluid {  
   text-align: center;
 }
 
+  button.cook{
+    background-color: #a2c7f1;
+    border: solid #a2c7f1 4px;  
+      }
+  button.do{
+    background-color:#b8aef3 ;
+    border: solid #b8aef3 4px;  
+    }
+  button.kids{
+    background-color: #eeeda3;
+    border: solid #eeeda3 4px;
+    }
+  button.watch{
+    background-color:#55dcdf ;
+    border: solid #55dcdf 4px; 
+    }
+  button.read{
+    background-color:#f8a99f ;
+    border: solid #f8a99f 4px; 
+    }
+  button.listen {
+    background-color: #59c89f ;
+    border: solid #59c89f 4px; 
+    }
+  button.grateful{
+    background-color: #b1dfe7;
+    border: solid #b1dfe7 4px; 
+    }
+  button.health {
+    background-color:#df9cec ;
+    border: solid #df9cec 4px; 
+    }
+  button.donate{
+    background-color: #9ee7a8;
+    border: solid #9ee7a8 4px; 
+    }
+    
+
 .flex-item{  
   display: inline-block;
   margin: 7px; 
-  background-color: #5CBCFF;
   text-align: center;
   border-radius: 5px;
   transition: transform 0.3s ease;
   cursor: pointer;
   border: 0; 
+  /* background-color: #5CBCFF; */
 }
 
 .fields{ 
   text-align: center;
-  background-color: #5CBCFF; 
   display: block;
   border: 0px; 
+  /* background-color: #5CBCFF;  */
 }
 
 .flex-item:hover {
@@ -97,7 +133,6 @@ article{
   margin: 0 auto;
   width: 80vw;
   padding: 30px;
-  border: solid #FFC9E1 4px; 
   border-radius: 8px;
   text-align: center;
     -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
@@ -106,6 +141,47 @@ article{
          -o-animation: fadein 1.5s; /* Opera < 12.1 */
             animation: fadein 1.5s;
 }
+
+    .cook{
+      border: solid #a2c7f1 4px;  
+      }
+    .do{
+      border: solid #b8aef3 4px;  
+    }
+    .kids{
+      border: solid #eeeda3 4px; 
+    }
+    .watch{
+      border: solid #55dcdf 4px; 
+    }
+    .read{
+      border: solid #f8a99f 4px; 
+    }
+    .listen {
+      border: solid #59c89f 4px; 
+    }
+    .grateful{
+      border: solid #b1dfe7 4px; 
+    }
+    .health {
+      border: solid #df9cec 4px; 
+    }
+    .donate{
+       border: solid #9ee7a8 4px; 
+    }
+  
+
+    article h6{     
+        font-weight: bold;
+        text-transform: uppercase;
+        width:160px;
+        margin-top: -40px; 
+        background:white;
+        position: absolute;
+    }
+
+
+
 
 @keyframes fadein {
     from { opacity: 0; }
@@ -180,7 +256,7 @@ footer {
       }
 
       nav svg {
-        height: 60px;
+        height: 40px;
       }
 
       .brand {
@@ -188,7 +264,7 @@ footer {
         font-family: 'Playfair Display', serif; 
         text-align: center; 
         float: right;
-        padding-top: 20px;
+        padding-top: 10px;
         margin: 0 auto;
         width: 60vw;
         
@@ -225,7 +301,6 @@ footer {
     .flex-item{  
       width: 30vw;
       height: 10vh; 
-      overflow: hidden;
       margin: 4px auto;
       font-size: .9em;
     }
@@ -245,13 +320,14 @@ footer {
     }
 
     article {
-      padding: 0px;
-      width: 90vw;
+      padding: 5px;
+      width: 95vw;
       overflow: hidden;
+      z-index: 0;
     }
 
     h2, h3, a{
-      font-size: .8em;
+      font-size: .9em;
     }
 
     h5 {
@@ -267,19 +343,23 @@ footer {
   
 @media only screen and (min-width: 577px) and (max-width: 1200px) {
 
- 
-
     .container-fluid{
-      width: 90vw;
+      width: 95vw;
       justify-content: space-evenly;
+      margin-bottom: 30px;
     }
 
     .flex-item{ 
-      width: 13vw; 
+      width: 14vw; 
     }
 
     article{
-      padding: 10px; 
+      padding: 20px; 
+    }
+
+    article h6{
+      margin-left: 3px;
+      margin-top:-30px;
     }
 
     .media {
@@ -349,7 +429,7 @@ footer {
       }
 
       nav svg {
-        height: 60px;
+        height: 40px;
       }
 
       .brand {
@@ -357,7 +437,7 @@ footer {
         font-family: 'Playfair Display', serif; 
         text-align: center; 
         float: right;
-        padding-top: 20px;
+        padding-top: 10px;
         margin: 0 auto;
         width: 60vw;
         
@@ -392,8 +472,7 @@ footer {
 
     .flex-item{  
       width: 30vw;
-      height: 10vh; 
-      overflow: hidden;
+      height: 10vh;  
       margin: 4px auto;
       font-size: .9em;
     }
@@ -414,7 +493,7 @@ footer {
 
     article {
       padding: 0px;
-      width: 90vw;
+      width: 95vw;
       overflow: hidden;
     }
 
@@ -445,7 +524,7 @@ footer {
     }
 
     .flex-item{ 
-      width: 13vw; 
+      width: 14vw; 
     }
 
     article{
