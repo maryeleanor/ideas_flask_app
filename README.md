@@ -11,7 +11,6 @@ This is a web app built with **python**, **flask** and **sqlite** to explore ide
 
 This is a repository of over 400 things to do, cook, watch, listen to, read, and be grateful for during this unique time. Listeners of the Death Sex & Money podcast collected and shared these ideas and thoughts on how we can pass the time, cope, and help others as we all learn to practice social distancing. Choose your category, and explore endlessly to find some comfort, or add a little novelty to your weekend.
 
-Check it out at **[pandemic-toolkit.com](http://www.pandemic-toolkit.com).**
-
+Check it out at <a href="http://www.pandemic-toolkit.com" target="_blank" style="font-weight:bold;">pandemic-toolkit.com</a>.
 
  
