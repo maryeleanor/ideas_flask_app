@@ -1,65 +1,63 @@
 {% extends "layout.html" %}
 
 {% block title %}
-{{ title }}
 {% endblock %}
 
 {% block main %}
         <div class="center">
-        <h1>Pandemic Tool Kit</h1> 
-        <h4> For those of us stuck in the house, looking for things to do... </h4>
+        <h1>Pandemic Toolkit</h1> 
+        <h4> For those of us stuck at home, looking for things to do... </h4>
         </div> 
-
 
         <div class="flex-container">
         <div class="container-fluid"> 
         <form method="POST" action="{{ url_for('home') }}" >
-                <!-- {{ form.hidden_tag() }} -->
                 <fieldset class="form-group">
 
-                <button name=cookField type=form.cookField value=cookField class="form-group btn-outline flex-item">
-                        <img class="btn-img d-none d-sm-none d-md-inline-block" src="/static/img/cooking.svg" />
-                        {{ form.cookField(class="fields") }} 
+                <button name=cook type=form.cook  value=cook  class="form-group btn-outline flex-item">
+                        <img class="btn-img" src="/static/img/cooking.svg" />
+                        <p> Cook </p>
                 </button>
 
-                <button name=doField type=form.doField value=doField class="form-group btn-outline flex-item">
-                        <img class="btn-img d-none d-sm-none d-md-inline-block" src="/static/img/craft.svg" />
-                        {{ form.doField(class="fields") }}
+                <button name=do type=form.do value=do class="form-group btn-outline flex-item">
+                        <img class="btn-img" src="/static/img/craft.svg" />
+                        <p> Do </p>
                 </button>
 
-                <button name=kidsField type=form.kidsField value=kidsField class="form-group btn-outline flex-item">
-                        <img class="btn-img d-none  d-sm-none d-md-inline-block" src="/static/img/blocks.svg" />
-                        {{ form.kidsField(class="fields") }}
+                <button name=kids type=form.kids value=kids class="form-group btn-outline flex-item">
+                        <img class="btn-img" src="/static/img/blocks.svg" />
+                        <p class="d-none d-sm-none d-md-none d-lg-none d-xl-block"> Do with Kids</p>
+                        <p class="d-block d-sm-block d-md-block d-lg-block d-xl-none"> Kids </p>
                 </button>
 
-                <button name=watchField type=form.watchField value=watchField class="form-group btn-outline flex-item">
-                        <img class="btn-img d-none d-sm-none d-md-inline-block" src="/static/img/play.svg" />
-                        {{ form.watchField(class="fields") }}
+                <button name=watch type=form.watch value=watch class="form-group btn-outline flex-item">
+                        <img class="btn-img" src="/static/img/play.svg" />
+                        <p> Watch </p>
                 </button>
 
-                <button name=readField type=form.readField value=readField class="form-group btn-outline flex-item">
-                        <img class="btn-img d-none d-sm-none d-md-inline-block" src="/static/img/read.svg" />
-                        {{ form.readField(class="fields") }}
+                <button name=read type=form.read value=read class="form-group btn-outline flex-item">
+                        <img class="btn-img" src="/static/img/read.svg" />
+                        <p> Read </p>
                 </button>
 
-                <button name=listenField type=form.listenField value=listenField class="form-group btn-outline flex-item">
-                        <img class="btn-img d-none d-sm-none d-md-inline-block" src="/static/img/listen.svg" />
-                        {{ form.listenField(class="fields") }}
+                <button name=listen type=form.listen value=listen class="form-group btn-outline flex-item">
+                        <img class="btn-img" src="/static/img/listen.svg" />
+                        <p> Listen </p>
                 </button>
 
-                <button name=gratefulField type=form.gratefulield value=gratefulield class="form-group btn-outline flex-item">
-                        <img class="btn-img d-none d-sm-none d-md-inline-block" src="/static/img/hand-heart.svg" />
-                        {{ form.gratefulField(class="fields") }}
+                <button name=grateful type=form.grateful value=grateful class="form-group btn-outline flex-item">
+                        <img class="btn-img" src="/static/img/hand-heart.svg" />
+                        <p> Grateful </p>
                 </button>
 
-                <button name=healthField type=form.healthField value=healthField class="form-group btn-outline flex-item">
-                        <img class="btn-img d-none d-sm-none d-md-inline-block" src="/static/img/sun.svg" />
-                        {{ form.healthField(class="fields") }}
+                <button name=health type=form.health value=health class="form-group btn-outline flex-item">
+                        <img class="btn-img" src="/static/img/sun.svg" />
+                        <p> Health </p>
                 </button>
 
-                <button name=donateField type=form.donateField value=donateField class="form-group btn-outline flex-item">
-                        <img class="btn-img d-none d-sm-none d-md-inline-block" src="/static/img/donate2.svg" />
-                        {{ form.donateField(class="fields") }}
+                <button name=donate type=form.donate value=donate class="form-group btn-outline flex-item">
+                        <img class="btn-img" src="/static/img/donate2.svg" />
+                        <p> Donate </p>
                 </button>
                 </fieldset>
         </form>
@@ -67,15 +65,12 @@
 
         {% if request.method == "GET" %}
         <div class="about">
-                <h3>This is a repository of over 400 things to do, watch, read, think, and listen to during this unique time.
-                        Listeners of the <a target="_blank" href="https://www.wnycstudios.org/podcasts/deathsexmoney">
-                        Death Sex & Money podcast</a> shared these
-                        <a target="_blank" href="https://docs.google.com/spreadsheets/d/1npe706TWTCzg9LzP_Jydso_w5rRbCxbwDQp-bUaB44E/">ideas
-                        </a> last week on how to pass the time, how to cope,
-                        and how to help others as we learn to practice social distancing.
-                        We hope you can find something on here that will feel like a fresh comfort, maybe even add a little
-                        novelty to your weekend. 
-
+                <h3>    This is a repository of over 400 things to do, cook, watch, listen to, read, and be grateful for during this unique time. 
+                        Listeners of the <a target="_blank" href="https://www.wnycstudios.org/podcasts/deathsexmoney">Death Sex & Money podcast</a> 
+                        collected and shared over 400 original
+                        <a target="_blank" href="https://docs.google.com/spreadsheets/d/1npe706TWTCzg9LzP_Jydso_w5rRbCxbwDQp-bUaB44E/">ideas and thoughts</a> 
+                        on how we can pass the time, cope, and help others as we all learn to practice social distancing. Choose your category, and explore 
+                        endlessly to find some comfort, or add a little novelty to your weekend.
                 </h3>
         </div>
         {% endif %}

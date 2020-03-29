@@ -2,22 +2,18 @@
 body {
 font-family: 'Quicksand', sans-serif;
 font-size: 20px;
-margin: 0 auto;
-width: 95%; 
+margin: 0 auto; 
 }
 
 main{
   min-height: calc(100vh - 140px); 
 }
-
-div {
-  padding-top: 16px;
-}
+ 
 
 .about{  
   padding-top:40px;
   margin: 0 auto;
-  width: 80%;
+  width: 70%;
   text-align: center; 
   line-height:30px;
 }
@@ -26,6 +22,7 @@ div {
   margin: 0 auto;
   width: 60%;
   text-align: center; 
+  padding: 20px;
 }
 
 nav{
@@ -37,13 +34,6 @@ svg {
   fill: pink;
 } 
 
-.brand {
-  color: #000;
-  font-family: 'Playfair Display', serif;
-  padding-top: 30px;
-  margin-right: 60px;
-  float: right;
-}
 
 h1 {
   font-family: 'Playfair Display', serif;
@@ -65,25 +55,19 @@ fieldset{
 }
   
 
-.container-fluid { 
-  display: flex;
-  flex-flow: row wrap; 
-  align-items: center;
-  align-content: center;
-  justify-content: center;   
-  margin: 0 auto;  
+.container-fluid {  
   text-align: center;
 }
 
-.flex-item{
-  flex: 1 1 auto;
+.flex-item{  
   display: inline-block;
-  margin: 10px; 
+  margin: 7px; 
   background-color: #5CBCFF;
   text-align: center;
-  border-radius: 8px;
+  border-radius: 5px;
   transition: transform 0.3s ease;
   cursor: pointer;
+  border: 0; 
 }
 
 .fields{ 
@@ -98,8 +82,8 @@ fieldset{
 }
 
 .btn-img{ 
-  height:100px;
-  width: 100px;
+  height:120px;
+  width: 120px;
   padding: 10px;
 }
 
@@ -108,6 +92,7 @@ fieldset{
 }
 
 article{ 
+  margin-top: 40px;
   align-content: center;
   margin: 0 auto;
   width: 80%;
@@ -151,79 +136,180 @@ article{
     to   { opacity: 1; }
 }
 
-article p {
+article p, footer p {
   margin: 0;
 }
 
-footer {  
-  height:60px;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 1rem;
+footer {    
+  padding: .5rem;
   background-color: #f5f5f5; 
-  text-align: center;
-}
-
-footer p{
-  margin-bottom: 0px;
+  text-align: center; 
 }
 
 .small{  
   font-size: .7em;
-  margin-top: 20px; 
+  margin-top: 40px; 
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 575px) {
 
-  h1, h4{
-    display: none;
-  }
+      body{
+        line-height: normal; 
+      }
 
-  .center {
-    width: 100%;
-  }
+      p{
+        margin-bottom: 0;
+      }
 
-  .about {
-    padding: 0px;
-    width: 100%;
-    flex-grow: 2;
-  }
+      .navbar{
+          padding-left: 0;
+      }
 
-  .media {
-    margin-top: 0px;
-  }
-  .center{
-    width: 90%;
-  }
+      nav {
+          margin-top: 0;
+          margin-bottom: 0;
+          padding: 0;
+        }
 
-  div{
-    padding: 0px;
-  }
+      nav a {
+        display: inline;
+      }
 
-  nav{
-    display: inline;
-    height: 50px;
-    margin-bottom: -10px;
-  }
+      nav svg {
+        height: 60px;
+      }
 
-  .flex-item{ 
-    margin: 5px;
-    font-size: .8em;
-  }
+      .brand {
+        color: #000;
+        font-family: 'Playfair Display', serif; 
+        text-align: center; 
+        float: right;
+        padding-top: 20px;
+        margin: 0 auto;
+        width: 60vw;
+        
+      } 
 
- article {
-   padding: 0px;
-   width: 100%;
-   overflow: hidden;
- }
+      h1 {
+          display: none;
+        }
 
- article h3{
-   font-size: .7em;
- }
+      .center {
+        padding:4px;
+        width: 100%;
+      }
 
- footer{
-   height: 100px;
- }
+      .center h4{
+        font-size: .7em;
+        margin: 0 auto;
+        width: 85%;
+      }
+
+      .about {
+        padding: 0px;
+        width: 100%;
+        flex-grow: 2;
+      }
+
+      .media {
+        margin-top: 0px;
+        display: block;
+      }
+
+      div{
+        padding: 0px;
+      }
+
+    .flex-item{  
+      width: 30vw;
+      height: 10vh; 
+      overflow: hidden;
+      margin: 4px auto;
+      font-size: .9em;
+    }
+
+    .btn-img{
+      height:30px;
+       width:30px;
+       padding: 0;
+    }
+    
+    .fields{
+      display: inline;
+    }
+
+    .container-fluid{
+      padding: 0;
+    }
+
+    article {
+      padding: 0px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    h2, h3, a{
+      font-size: .8em;
+    }
+
+    h5 {
+      font-size: .7em;
+    }
+
+    .small{  
+      font-size: .5em;
+    }
+}
+
+
+
+@media only screen and (min-width: 577px) and (max-width: 1200px) {
+
+    .container-fluid{
+      width: 90vw;
+      justify-content: space-evenly;
+    }
+
+    .flex-item{ 
+      width: 13vw; 
+    }
+
+    article{
+      padding: 10px; 
+    }
+
+    .media {
+      display: block;
+      margin-top: 5px;
+    }
+
+    div {
+      margin-top: 4px;  
+      padding-top: 0;
+    }
+
+    .center{
+      width: 90%;
+    }
+      
+
+    .btn-img{
+      width: 80px;
+      height: 80px;
+    }
+
+}
+
+
+@media only screen and (min-width: 1200px) and (max-width: 1500px) {
+ 
+    .btn-img{
+      height: 100px;
+      width: 100px;
+    }
+
+    .flex-item{
+      margin: 2px;
+    }
 
 }
