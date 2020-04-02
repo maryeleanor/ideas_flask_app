@@ -27,44 +27,21 @@ def getIdea(category):
 @app.route('/home', methods=['GET', 'POST'])
 def home(): 
     if request.method == "POST":
-        category = request.form.get('category')
-
-        if category == 'cook':  
-            idea = getIdea(cook)
-            tag = "Something to Cook"
-             
-        if category == 'do':
-            idea = getIdea(do)
-            tag = "Something to Do" 
+        category = request.form.get('category') 
 
         if category == 'kids':
-            idea = getIdea(kids)
-            tag = "Something to do with kids" 
-        
-        if category == 'watch':  
-            idea = getIdea(kids)
-            tag = "Something to watch"
+            tag = 'Something to do with Kids'
+        elif category == 'listen':
+            tag = 'Something to Listen to'
+        elif category == 'grateful':
+            tag = "Something to be grateful for"
+        elif category == 'health':
+            tag = 'For your Mental Health'
+        else:
+            tag = 'Something to ' + category
 
-        if category == 'read':  
-            idea = getIdea(read)
-            tag = "Something to read" 
-
-        if category == 'listen':
-            idea = getIdea(listen)
-            tag = "Something to listen to"
-            
-        if category == 'grateful':
-            idea = getIdea(grateful)
-            tag="Something to be grateful for"
-        
-        if category == 'health':
-            idea = getIdea(health)
-            tag="For your mental health"
-
-        if category == 'donate':
-            idea = getIdea(donate)
-            tag="Something to donate"
-
+        category = eval(category)
+        idea = getIdea(category)
         return render_template("index.html", idea=idea, category=category, tag=tag)
 
     return render_template("index.html")
