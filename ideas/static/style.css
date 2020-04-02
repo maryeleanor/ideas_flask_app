@@ -124,11 +124,10 @@ fieldset{
 }
 
 .media {
-  margin-top: 40px;
+  margin-top: 60px;
 }
 
-article{ 
-  margin-top: 40px;
+article{  
   align-content: center;
   margin: 0 auto;
   width: 80vw;
@@ -363,8 +362,7 @@ footer {
     }
 
     .media {
-      display: block;
-      margin-top: 5px;
+      display: block; 
     }
 
     div {

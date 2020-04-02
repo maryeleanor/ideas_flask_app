@@ -2,18 +2,10 @@
 import random  
 from flask import render_template, url_for,  redirect, request
 from ideas import app, db
-
-# map to db
-cook = db.Table('cook', db.metadata, autoload=True, autoload_with=db.engine)
-do = db.Table('do', db.metadata, autoload=True, autoload_with=db.engine)
-donate = db.Table('donate', db.metadata, autoload=True, autoload_with=db.engine)
-kids = db.Table('kids', db.metadata, autoload=True, autoload_with=db.engine)
-listen = db.Table('listen', db.metadata, autoload=True, autoload_with=db.engine)
-watch = db.Table('watch', db.metadata, autoload=True, autoload_with=db.engine)
-read = db.Table('read', db.metadata, autoload=True, autoload_with=db.engine)
-grateful = db.Table('grateful', db.metadata, autoload=True, autoload_with=db.engine)
-health = db.Table('health', db.metadata, autoload=True, autoload_with=db.engine)
-
+ 
+def map(category):
+    table = db.Table(category, db.metadata, autoload=True, autoload_with=db.engine)
+    return table
 
 def getIdea(category):
     ideas = db.session.query(category).all()
@@ -27,8 +19,13 @@ def getIdea(category):
 @app.route('/home', methods=['GET', 'POST'])
 def home(): 
     if request.method == "POST":
-        category = request.form.get('category') 
+        #get category from button press
+        category = request.form.get('category')
 
+        #map to db
+        table = map(request.form.get('category'))
+
+        # customize tag wording
         if category == 'kids':
             tag = 'Something to do with Kids'
         elif category == 'listen':
@@ -40,8 +37,8 @@ def home():
         else:
             tag = 'Something to ' + category
 
-        category = eval(category)
-        idea = getIdea(category)
+        # run category query to find random idea
+        idea = getIdea(table)
         return render_template("index.html", idea=idea, category=category, tag=tag)
 
     return render_template("index.html")
