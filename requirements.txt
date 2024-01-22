@@ -13,7 +13,7 @@ gunicorn==20.0.4
 itsdangerous
 Jinja2~=3.0.3
 MarkupSafe
-Pillow==10.0.1
+Pillow==10.2.0
 pycodestyle==2.5.0
 pycparser==2.20
 six==1.14.0
